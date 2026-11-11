@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BookShelf</string>
+    <string name="welcome">Your reading list starts here</string>
+</resources>
