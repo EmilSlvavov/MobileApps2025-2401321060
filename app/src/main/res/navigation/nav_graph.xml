@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/bookListFragment">
+
+    <fragment
+        android:id="@+id/bookListFragment"
+        android:name="com.slavov.bookshelf.ui.list.BookListFragment"
+        android:label="@string/book_list_title">
+        <action
+            android:id="@+id/action_bookList_to_bookEdit"
+            app:destination="@id/bookEditFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookEditFragment"
+        android:name="com.slavov.bookshelf.ui.edit.BookEditFragment"
+        android:label="@string/add_book" />
+
+</navigation>

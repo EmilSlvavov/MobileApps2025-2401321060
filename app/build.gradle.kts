@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.material)
+    implementation(libs.androidx.navigation.fragment.ktx)
 
     testImplementation(libs.junit)
 

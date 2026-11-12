@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">BookShelf</string>
-    <string name="welcome">Your reading list starts here</string>
+    <string name="book_list_title">My books</string>
+    <string name="add_book">Add book</string>
+    <string name="navigate_back">Back</string>
+    <string name="list_placeholder">Your books will appear here</string>
+    <string name="form_placeholder">The book form will appear here</string>
 </resources>
