@@ -3,6 +3,11 @@
     <string name="book_list_title">My books</string>
     <string name="add_book">Add book</string>
     <string name="navigate_back">Back</string>
-    <string name="list_placeholder">Your books will appear here</string>
     <string name="form_placeholder">The book form will appear here</string>
+
+    <string name="empty_list">No books here yet. Tap + to add one.</string>
+    <string name="status_to_read">To read</string>
+    <string name="status_reading">Reading</string>
+    <string name="status_finished">Finished</string>
+    <string name="pages_progress">%1$d / %2$d pages</string>
 </resources>
