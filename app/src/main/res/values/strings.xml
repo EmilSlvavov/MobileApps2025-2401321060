@@ -3,11 +3,23 @@
     <string name="book_list_title">My books</string>
     <string name="add_book">Add book</string>
     <string name="navigate_back">Back</string>
-    <string name="form_placeholder">The book form will appear here</string>
 
     <string name="empty_list">No books here yet. Tap + to add one.</string>
     <string name="status_to_read">To read</string>
     <string name="status_reading">Reading</string>
     <string name="status_finished">Finished</string>
     <string name="pages_progress">%1$d / %2$d pages</string>
+
+    <string name="label_title">Title</string>
+    <string name="label_author">Author</string>
+    <string name="label_total_pages">Total pages</string>
+    <string name="label_pages_read">Pages read</string>
+    <string name="label_status">Status</string>
+    <string name="save">Save</string>
+
+    <string name="error_required">This field is required</string>
+    <string name="error_too_long">Use at most 120 characters</string>
+    <string name="error_not_a_number">Enter a whole number</string>
+    <string name="error_must_be_positive">Must be greater than zero</string>
+    <string name="error_exceeds_total">Cannot be more than the total pages</string>
 </resources>
