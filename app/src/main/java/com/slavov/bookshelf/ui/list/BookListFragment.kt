@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.slavov.bookshelf.R
 import com.slavov.bookshelf.databinding.FragmentBookListBinding
 import com.slavov.bookshelf.domain.model.Book
+import com.slavov.bookshelf.domain.model.ReadingStatus
 import com.slavov.bookshelf.ui.edit.BookEditViewModel
 import kotlinx.coroutines.launch
 
@@ -29,6 +30,7 @@ class BookListFragment : Fragment(R.layout.fragment_book_list) {
         )
         binding.bookList.adapter = adapter
         attachSwipeToDelete(binding, adapter)
+        setUpFilterChips(binding)
         binding.addBookButton.setOnClickListener {
             findNavController().navigate(R.id.action_bookList_to_bookEdit)
         }
@@ -47,6 +49,18 @@ class BookListFragment : Fragment(R.layout.fragment_book_list) {
             R.id.action_bookList_to_bookEdit,
             Bundle().apply { putLong(BookEditViewModel.ARG_BOOK_ID, book.id) },
         )
+    }
+
+    private fun setUpFilterChips(binding: FragmentBookListBinding) {
+        binding.filterChips.setOnCheckedStateChangeListener { _, checkedIds ->
+            val status = when (checkedIds.firstOrNull()) {
+                R.id.chipToRead -> ReadingStatus.TO_READ
+                R.id.chipReading -> ReadingStatus.READING
+                R.id.chipFinished -> ReadingStatus.FINISHED
+                else -> null
+            }
+            viewModel.setFilter(status)
+        }
     }
 
     private fun attachSwipeToDelete(binding: FragmentBookListBinding, adapter: BookAdapter) {
