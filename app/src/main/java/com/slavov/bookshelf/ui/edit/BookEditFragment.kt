@@ -37,6 +37,11 @@ class BookEditFragment : Fragment(R.layout.fragment_book_edit) {
             findNavController().navigateUp()
             return
         }
+        state.pendingDraft?.let { draft ->
+            showDraft(binding, draft)
+            viewModel.onDraftShown()
+        }
+        binding.toolbar.setTitle(if (state.isEditing) R.string.edit_book else R.string.add_book)
         binding.titleLayout.error = errorText(state.errors[BookField.TITLE])
         binding.authorLayout.error = errorText(state.errors[BookField.AUTHOR])
         binding.totalPagesLayout.error = errorText(state.errors[BookField.TOTAL_PAGES])
@@ -54,6 +59,20 @@ class BookEditFragment : Fragment(R.layout.fragment_book_edit) {
             else -> ReadingStatus.TO_READ
         },
     )
+
+    private fun showDraft(binding: FragmentBookEditBinding, draft: BookDraft) {
+        binding.titleInput.setText(draft.title)
+        binding.authorInput.setText(draft.author)
+        binding.totalPagesInput.setText(draft.totalPages)
+        binding.pagesReadInput.setText(draft.pagesRead)
+        binding.statusGroup.check(
+            when (draft.status) {
+                ReadingStatus.TO_READ -> R.id.statusToRead
+                ReadingStatus.READING -> R.id.statusReading
+                ReadingStatus.FINISHED -> R.id.statusFinished
+            },
+        )
+    }
 
     private fun errorText(error: FieldError?): String? = error?.let { getString(it.messageRes) }
 }

@@ -27,3 +27,11 @@ fun BookDraft.toBook(id: Long = 0): Book {
         status = status,
     )
 }
+
+fun Book.toDraft(): BookDraft = BookDraft(
+    title = title,
+    author = author,
+    totalPages = totalPages.toString(),
+    pagesRead = pagesRead.toString(),
+    status = status,
+)

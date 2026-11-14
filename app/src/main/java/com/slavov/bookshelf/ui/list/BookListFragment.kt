@@ -11,6 +11,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.slavov.bookshelf.R
 import com.slavov.bookshelf.databinding.FragmentBookListBinding
+import com.slavov.bookshelf.domain.model.Book
+import com.slavov.bookshelf.ui.edit.BookEditViewModel
 import kotlinx.coroutines.launch
 
 class BookListFragment : Fragment(R.layout.fragment_book_list) {
@@ -19,7 +21,9 @@ class BookListFragment : Fragment(R.layout.fragment_book_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentBookListBinding.bind(view)
-        val adapter = BookAdapter()
+        val adapter = BookAdapter(
+            onBookClick = ::openBook,
+        )
         binding.bookList.adapter = adapter
         binding.addBookButton.setOnClickListener {
             findNavController().navigate(R.id.action_bookList_to_bookEdit)
@@ -32,5 +36,12 @@ class BookListFragment : Fragment(R.layout.fragment_book_list) {
                 }
             }
         }
+    }
+
+    private fun openBook(book: Book) {
+        findNavController().navigate(
+            R.id.action_bookList_to_bookEdit,
+            Bundle().apply { putLong(BookEditViewModel.ARG_BOOK_ID, book.id) },
+        )
     }
 }

@@ -10,7 +10,9 @@ import com.slavov.bookshelf.databinding.ItemBookBinding
 import com.slavov.bookshelf.domain.model.Book
 import com.slavov.bookshelf.ui.common.labelRes
 
-class BookAdapter : ListAdapter<Book, BookAdapter.BookViewHolder>(BookDiffCallback) {
+class BookAdapter(
+    private val onBookClick: (Book) -> Unit,
+) : ListAdapter<Book, BookAdapter.BookViewHolder>(BookDiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val binding = ItemBookBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BookViewHolder(binding)
@@ -25,6 +27,7 @@ class BookAdapter : ListAdapter<Book, BookAdapter.BookViewHolder>(BookDiffCallba
         binding.statusText.setText(book.status.labelRes)
         binding.progressText.text = context.getString(R.string.pages_progress, book.pagesRead, book.totalPages)
         binding.progressBar.progress = book.progressPercent
+        binding.root.setOnClickListener { onBookClick(book) }
     }
 
     class BookViewHolder(val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root)

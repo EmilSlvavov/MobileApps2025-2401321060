@@ -2,6 +2,7 @@
     <string name="app_name">BookShelf</string>
     <string name="book_list_title">My books</string>
     <string name="add_book">Add book</string>
+    <string name="edit_book">Edit book</string>
     <string name="navigate_back">Back</string>
 
     <string name="empty_list">No books here yet. Tap + to add one.</string>

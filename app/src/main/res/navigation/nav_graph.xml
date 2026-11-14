@@ -16,6 +16,11 @@
     <fragment
         android:id="@+id/bookEditFragment"
         android:name="com.slavov.bookshelf.ui.edit.BookEditFragment"
-        android:label="@string/add_book" />
+        android:label="@string/add_book">
+        <argument
+            android:name="bookId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
 
 </navigation>
