@@ -9,6 +9,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.slavov.bookshelf.R
 import com.slavov.bookshelf.databinding.FragmentBookListBinding
 import com.slavov.bookshelf.domain.model.Book
@@ -25,6 +28,7 @@ class BookListFragment : Fragment(R.layout.fragment_book_list) {
             onBookClick = ::openBook,
         )
         binding.bookList.adapter = adapter
+        attachSwipeToDelete(binding, adapter)
         binding.addBookButton.setOnClickListener {
             findNavController().navigate(R.id.action_bookList_to_bookEdit)
         }
@@ -43,5 +47,26 @@ class BookListFragment : Fragment(R.layout.fragment_book_list) {
             R.id.action_bookList_to_bookEdit,
             Bundle().apply { putLong(BookEditViewModel.ARG_BOOK_ID, book.id) },
         )
+    }
+
+    private fun attachSwipeToDelete(binding: FragmentBookListBinding, adapter: BookAdapter) {
+        val swipeDirections = ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        val callback = object : ItemTouchHelper.SimpleCallback(0, swipeDirections) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder,
+            ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val book = adapter.bookAt(viewHolder.bindingAdapterPosition)
+                viewModel.delete(book)
+                Snackbar.make(binding.root, getString(R.string.book_deleted, book.title), Snackbar.LENGTH_LONG)
+                    .setAnchorView(binding.addBookButton)
+                    .setAction(R.string.undo) { viewModel.restore(book) }
+                    .show()
+            }
+        }
+        ItemTouchHelper(callback).attachToRecyclerView(binding.bookList)
     }
 }

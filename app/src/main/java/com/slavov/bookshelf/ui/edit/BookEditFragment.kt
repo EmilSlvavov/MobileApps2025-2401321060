@@ -8,6 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.slavov.bookshelf.R
 import com.slavov.bookshelf.databinding.FragmentBookEditBinding
 import com.slavov.bookshelf.domain.BookDraft
@@ -24,6 +25,8 @@ class BookEditFragment : Fragment(R.layout.fragment_book_edit) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentBookEditBinding.bind(view)
         binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+        binding.toolbar.inflateMenu(R.menu.menu_book_edit)
+        binding.toolbar.setOnMenuItemClickListener { item -> onMenuItemClick(item.itemId) }
         binding.saveButton.setOnClickListener { viewModel.save(readDraft(binding)) }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -42,6 +45,7 @@ class BookEditFragment : Fragment(R.layout.fragment_book_edit) {
             viewModel.onDraftShown()
         }
         binding.toolbar.setTitle(if (state.isEditing) R.string.edit_book else R.string.add_book)
+        binding.toolbar.menu.setGroupVisible(R.id.group_existing_book, state.isEditing)
         binding.titleLayout.error = errorText(state.errors[BookField.TITLE])
         binding.authorLayout.error = errorText(state.errors[BookField.AUTHOR])
         binding.totalPagesLayout.error = errorText(state.errors[BookField.TOTAL_PAGES])
@@ -75,4 +79,23 @@ class BookEditFragment : Fragment(R.layout.fragment_book_edit) {
     }
 
     private fun errorText(error: FieldError?): String? = error?.let { getString(it.messageRes) }
+
+    private fun onMenuItemClick(itemId: Int): Boolean = when (itemId) {
+        R.id.action_delete -> {
+            confirmDelete()
+            true
+        }
+
+        else -> false
+    }
+
+    private fun confirmDelete() {
+        val title = viewModel.uiState.value.book?.title.orEmpty()
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.delete_book_title)
+            .setMessage(getString(R.string.delete_book_message, title))
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(R.string.delete) { _, _ -> viewModel.delete() }
+            .show()
+    }
 }

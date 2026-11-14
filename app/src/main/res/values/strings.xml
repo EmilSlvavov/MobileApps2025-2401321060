@@ -23,4 +23,10 @@
     <string name="error_not_a_number">Enter a whole number</string>
     <string name="error_must_be_positive">Must be greater than zero</string>
     <string name="error_exceeds_total">Cannot be more than the total pages</string>
+
+    <string name="delete">Delete</string>
+    <string name="undo">Undo</string>
+    <string name="book_deleted">\"%1$s\" deleted</string>
+    <string name="delete_book_title">Delete this book?</string>
+    <string name="delete_book_message">\"%1$s\" will be removed from your list.</string>
 </resources>

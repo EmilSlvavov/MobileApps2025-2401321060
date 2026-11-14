@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 data class BookListUiState(
     val books: List<Book> = emptyList(),
@@ -23,6 +24,14 @@ class BookListViewModel(private val repository: BookRepository) : ViewModel() {
         repository.observeBooks()
             .map { books -> BookListUiState(books = books, isLoading = false) }
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS), BookListUiState())
+
+    fun delete(book: Book) {
+        viewModelScope.launch { repository.deleteBook(book.id) }
+    }
+
+    fun restore(book: Book) {
+        viewModelScope.launch { repository.addBook(book) }
+    }
 
     companion object {
         private const val STOP_TIMEOUT_MILLIS = 5_000L

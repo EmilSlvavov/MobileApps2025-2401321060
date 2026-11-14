@@ -30,6 +30,8 @@ class BookAdapter(
         binding.root.setOnClickListener { onBookClick(book) }
     }
 
+    fun bookAt(position: Int): Book = getItem(position)
+
     class BookViewHolder(val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root)
 
     private object BookDiffCallback : DiffUtil.ItemCallback<Book>() {

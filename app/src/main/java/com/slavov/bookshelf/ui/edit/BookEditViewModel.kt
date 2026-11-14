@@ -70,6 +70,14 @@ class BookEditViewModel(
         }
     }
 
+    fun delete() {
+        if (bookId == NEW_BOOK_ID) return
+        viewModelScope.launch {
+            repository.deleteBook(bookId)
+            _uiState.update { it.copy(isDone = true) }
+        }
+    }
+
     companion object {
         const val ARG_BOOK_ID = "bookId"
         const val NEW_BOOK_ID = -1L
