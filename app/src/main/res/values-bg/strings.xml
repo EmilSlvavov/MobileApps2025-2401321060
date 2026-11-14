@@ -1,0 +1,38 @@
+<resources>
+    <string name="book_list_title">Моите книги</string>
+    <string name="add_book">Нова книга</string>
+    <string name="edit_book">Редактиране</string>
+    <string name="navigate_back">Назад</string>
+
+    <string name="empty_list">Все още няма книги. Натиснете +, за да добавите.</string>
+    <string name="status_to_read">За четене</string>
+    <string name="status_reading">Чета</string>
+    <string name="status_finished">Прочетена</string>
+    <string name="pages_progress">%1$d / %2$d страници</string>
+    <string name="filter_all">Всички</string>
+
+    <string name="label_title">Заглавие</string>
+    <string name="label_author">Автор</string>
+    <string name="label_total_pages">Общо страници</string>
+    <string name="label_pages_read">Прочетени страници</string>
+    <string name="label_status">Статус</string>
+    <string name="save">Запази</string>
+
+    <string name="error_required">Полето е задължително</string>
+    <string name="error_too_long">Най-много 120 символа</string>
+    <string name="error_not_a_number">Въведете цяло число</string>
+    <string name="error_must_be_positive">Трябва да е по-голямо от нула</string>
+    <string name="error_exceeds_total">Не може да надвишава общия брой страници</string>
+
+    <string name="delete">Изтрий</string>
+    <string name="undo">Отмени</string>
+    <string name="book_deleted">„%1$s“ е изтрита</string>
+    <string name="delete_book_title">Изтриване на книгата?</string>
+    <string name="delete_book_message">„%1$s“ ще бъде премахната от списъка.</string>
+
+    <string name="share">Сподели</string>
+    <string name="share_title">Споделяне на книга</string>
+    <string name="share_to_read" formatted="false">Искам да прочета „%1$s“ от %2$s.</string>
+    <string name="share_reading" formatted="false">Чета „%1$s“ от %2$s и съм на %3$d%%.</string>
+    <string name="share_finished" formatted="false">Прочетох „%1$s“ от %2$s. Препоръчвам!</string>
+</resources>
