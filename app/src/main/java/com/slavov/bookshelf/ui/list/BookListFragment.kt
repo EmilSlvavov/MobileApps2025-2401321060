@@ -16,6 +16,7 @@ import com.slavov.bookshelf.R
 import com.slavov.bookshelf.databinding.FragmentBookListBinding
 import com.slavov.bookshelf.domain.model.Book
 import com.slavov.bookshelf.domain.model.ReadingStatus
+import com.slavov.bookshelf.ui.common.shareBook
 import com.slavov.bookshelf.ui.edit.BookEditViewModel
 import kotlinx.coroutines.launch
 
@@ -27,6 +28,7 @@ class BookListFragment : Fragment(R.layout.fragment_book_list) {
         val binding = FragmentBookListBinding.bind(view)
         val adapter = BookAdapter(
             onBookClick = ::openBook,
+            onShareClick = { book -> requireContext().shareBook(book) },
         )
         binding.bookList.adapter = adapter
         attachSwipeToDelete(binding, adapter)

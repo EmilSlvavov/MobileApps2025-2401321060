@@ -16,6 +16,7 @@ import com.slavov.bookshelf.domain.BookField
 import com.slavov.bookshelf.domain.FieldError
 import com.slavov.bookshelf.domain.model.ReadingStatus
 import com.slavov.bookshelf.ui.common.messageRes
+import com.slavov.bookshelf.ui.common.shareBook
 import kotlinx.coroutines.launch
 
 class BookEditFragment : Fragment(R.layout.fragment_book_edit) {
@@ -81,6 +82,11 @@ class BookEditFragment : Fragment(R.layout.fragment_book_edit) {
     private fun errorText(error: FieldError?): String? = error?.let { getString(it.messageRes) }
 
     private fun onMenuItemClick(itemId: Int): Boolean = when (itemId) {
+        R.id.action_share -> {
+            viewModel.uiState.value.book?.let { requireContext().shareBook(it) }
+            true
+        }
+
         R.id.action_delete -> {
             confirmDelete()
             true

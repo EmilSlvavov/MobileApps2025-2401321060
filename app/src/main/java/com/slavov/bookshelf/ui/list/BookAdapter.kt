@@ -12,6 +12,7 @@ import com.slavov.bookshelf.ui.common.labelRes
 
 class BookAdapter(
     private val onBookClick: (Book) -> Unit,
+    private val onShareClick: (Book) -> Unit,
 ) : ListAdapter<Book, BookAdapter.BookViewHolder>(BookDiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val binding = ItemBookBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,6 +29,7 @@ class BookAdapter(
         binding.progressText.text = context.getString(R.string.pages_progress, book.pagesRead, book.totalPages)
         binding.progressBar.progress = book.progressPercent
         binding.root.setOnClickListener { onBookClick(book) }
+        binding.shareButton.setOnClickListener { onShareClick(book) }
     }
 
     fun bookAt(position: Int): Book = getItem(position)
